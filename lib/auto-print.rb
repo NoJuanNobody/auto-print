@@ -27,3 +27,9 @@ size.each do |key, number|
 	driver.manage.window.resize_to(number-50,800)
 	driver.save_screenshot("#{number}".upcase+".png")
 end
+# create error handling
+if ARGV[0] == "help" || ARGV[0] =="-help"
+	puts "help clause"
+elsif ARGV[0] == "version"
+	puts "Version 0.0.1"
+elsif
