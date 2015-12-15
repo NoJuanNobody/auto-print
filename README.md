@@ -1,5 +1,18 @@
 # auto-print 
 ## the automated printing CLI for Erickson Living
+```
+		______________________
+		|                    |
+		|  A U T O P R I N T |
+		|                    |
+		|  ~~~~~~~~~~~~~~~~~ |
+		|  ~~~~~~~~~~~~~~~~~ |
+		|  ~~~~~~~~~~~~~~~~~ |
+		|  ~~~~~~~~~~~~~~~~~ |
+		|  ~~~~~~~~~~~~~~~~~ |
+		|  ~~~~~~~~~~~~~~~~~ |
+		L____________________|
+```
 
 auto print is a ruby command line CLI that uses the selenium-webdriver based on the JDK development kit to automate and test browser interactions in firefox. 
 
