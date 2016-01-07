@@ -68,25 +68,84 @@ elsif ARGV.length == 1 and (ARGV[0] == "-v" or ARGV[0] == "-version" or ARGV[0] 
 elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] != '-version' or ARGV[0] != "-v"  
 	# line 68 catches any user input that relates to .xls files in the form of 
 	# prune-erickson yourfile.xls [digit] outputfile.xls
-	if ARGV[0] =~ /(http)+[\S]*/
+
+	
+
+	def url_question
+		puts "\n\n"
+		print "Do you wish to screenshot the URL without additional versioning? [Y/N/X]\n\n".yellow
+		puts "you can exit this form at any time by pressing the X key on your keyboard".blue.blink
+
+		settingsResponse = STDIN.gets.strip.uppercase
+		print "\n\n"
+
+		if versioningResponse = 'Y'
+			puts "what do you wish to name the file?".green
+			name = STDN.gets.strip
+			screenshot(name)
+		elsif versioningResponse ='X'
+			break
+		else
+			version_question
+		end
+	end
+	def version_question()
+		puts "\n\n" 
+		puts "Is this campaign versioned? [Y/N/X]".yellow
+		puts "you can exit this form at any time by pressing the X key on your keyboard".blue.blink
+
+		campaignResponse = STDIN.gets.strip
+		print "\n\n"
+
+		if campaignResponse = 'y' || 'Y'
+			email_question()
+		else
+			puts "which community do you wish to print please insert a 3 letter com code"
+			com = STDIN.gets.strip.uppercase
+			email_question()
+		end
+	end
+	def email_question()
+		puts "are these emails?"
+
+
+	end
+
+	def screenshot(name)
+		driver.navigate.to "#{url}"
+		driver.save_screenshot("#{name}"+".png")
+	end
+	def screenshot
+	def LP_screenshot(url, com_codes)
+		if url =~ /(http)+[\S]*/
+			puts "program"
+			driver = Selenium::WebDriver.for :firefox
+			com_codes.each do |com|
+				# printing email CS
+				driver.navigate.to "#{url}"+"?from="+"#{com}-EMAIL".upcase
+				driver.save_screenshot("#{com}".upcase+"-email.png")
+				puts "#{com}-EMAIL".upcase
+			end	
+	end
+
+	def email_screenshot(url, com_codes)
+		if url =~ /(http)+[\S]*/
 		puts "program"
 		driver = Selenium::WebDriver.for :firefox
 		com_codes.each do |com|
+			# landing pages
 			driver.navigate.to "#{url}"+"?from="+"#{com}".upcase
 			driver.save_screenshot("#{com}".upcase+".png")
 			puts "#{com}".upcase
-			# printing email CS
-			driver.navigate.to "#{url}"+"?from="+"#{com}-EMAIL".upcase
-			driver.save_screenshot("#{com}".upcase+"-email.png")
-			puts "#{com}-EMAIL".upcase
 		end
+	end
 
-		size.each do |key, number|
-			driver.navigate.to "#{url}"
-			puts key
-			driver.manage.window.resize_to(number-50,800)
-			driver.save_screenshot("#{number}".upcase+".png")
-		end
+		# size.each do |key, number|
+		# 	driver.navigate.to "#{url}"
+		# 	puts key
+		# 	driver.manage.window.resize_to(number-50,800)
+		# 	driver.save_screenshot("#{number}".upcase+".png")
+		# end
 		
 		
 	else
