@@ -107,7 +107,7 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 	end
 	def email_question()
 		puts "are these emails?"
-
+		# finish this up later
 
 	end
 
