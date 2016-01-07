@@ -75,6 +75,10 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 			driver.navigate.to "#{url}"+"?from="+"#{com}".upcase
 			driver.save_screenshot("#{com}".upcase+".png")
 			puts "#{com}".upcase
+			# printing email CS
+			driver.navigate.to "#{url}"+"?from="+"#{com}-EMAIL".upcase
+			driver.save_screenshot("#{com}".upcase+"-email.png")
+			puts "#{com}-EMAIL".upcase
 		end
 
 		size.each do |key, number|
