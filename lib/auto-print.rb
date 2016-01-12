@@ -69,53 +69,63 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 	# line 68 catches any user input that relates to .xls files in the form of 
 	# prune-erickson yourfile.xls [digit] outputfile.xls
 
-	
-
-	def url_question
+	def url_question(url, com_codes)
 		puts "\n\n"
-		print "Do you wish to screenshot the URL without additional versioning? [Y/N/X]\n\n".yellow
-		puts "you can exit this form at any time by pressing the X key on your keyboard".blue.blink
+		puts "Do you wish to screenshot of".yellow
+		puts " #{url} ".red
+		print "without additional versioning? [Y/N/X]\n\n".yellow
+		puts "you can exit this form at any time by pressing the X key on your keyboard"
 
-		settingsResponse = STDIN.gets.strip.uppercase
+		versioningResponse = STDIN.gets.strip.upcase
 		print "\n\n"
 
-		if versioningResponse = 'Y'
+		if versioningResponse == 'Y'
 			puts "what do you wish to name the file?".green
-			name = STDN.gets.strip
-			screenshot(name)
-		elsif versioningResponse ='X'
-			break
+			name = STDIN.gets.strip.upcase
+			screenshot(name, url)
+		elsif versioningResponse =='X'
+			puts "exiting sequence"
 		else
-			version_question
+			version_question(url, com_codes)
 		end
 	end
-	def version_question()
+	def version_question(url, com_codes)
 		puts "\n\n" 
 		puts "Is this campaign versioned? [Y/N/X]".yellow
-		puts "you can exit this form at any time by pressing the X key on your keyboard".blue.blink
+		puts "you can exit this form at any time by pressing the X key on your keyboard".yellow
 
-		campaignResponse = STDIN.gets.strip
+		campaignResponse = STDIN.gets.strip.upcase
 		print "\n\n"
 
-		if campaignResponse = 'y' || 'Y'
-			email_question()
+		if campaignResponse =='Y'
+			email_question( url, com_codes)
 		else
 			puts "which community do you wish to print please insert a 3 letter com code"
-			com = STDIN.gets.strip.uppercase
-			email_question()
+			com = STDIN.gets.strip.upcase
+			email_question(com, url, com_codes)
 		end
 	end
-	def email_question()
-		puts "are these emails?"
-		# finish this up later
 
+	def email_question(com_code=com_codes, url)
+		puts "are these emails?[Y/N/X]".yellow
+		emailResponse = STDIN.gets.strip.upcase
+		print"\n\n"
+
+		if emailResponse == 'Y'
+			email_screenshot(url, com_code)
+		elsif emailResponse == 'N'
+			LP_screenshot(url, com_code)
+		else
+			print "exiting sequence"
+		end
 	end
 
-	def screenshot(name)
-		driver.navigate.to "#{url}"
+	def screenshot(name, url=ARGV[0])
+		driver = Selenium::WebDriver.for :firefox
+		driver.navigate.to url
 		driver.save_screenshot("#{name}"+".png")
 	end
-	def screenshot
+
 	def LP_screenshot(url, com_codes)
 		if url =~ /(http)+[\S]*/
 			puts "program"
@@ -126,33 +136,33 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 				driver.save_screenshot("#{com}".upcase+"-email.png")
 				puts "#{com}-EMAIL".upcase
 			end	
-	end
-
-	def email_screenshot(url, com_codes)
-		if url =~ /(http)+[\S]*/
-		puts "program"
-		driver = Selenium::WebDriver.for :firefox
-		com_codes.each do |com|
-			# landing pages
-			driver.navigate.to "#{url}"+"?from="+"#{com}".upcase
-			driver.save_screenshot("#{com}".upcase+".png")
-			puts "#{com}".upcase
 		end
 	end
-
-		# size.each do |key, number|
-		# 	driver.navigate.to "#{url}"
-		# 	puts key
-		# 	driver.manage.window.resize_to(number-50,800)
-		# 	driver.save_screenshot("#{number}".upcase+".png")
-		# end
-		
-		
-	else
-		print "\n 
-		Are you trying to use auto-print? 
-		why dont you try this command:\n\n
-		auto-print help \n\n\n
-		"
+	def email_screenshot(url, com_codes)
+		if url =~ /(http)+[\S]*/
+			puts "program"
+			driver = Selenium::WebDriver.for :firefox
+			com_codes.each do |com|
+				# landing pages
+				driver.navigate.to "#{url}"+"?from="+"#{com}".upcase
+				driver.save_screenshot("#{com}".upcase+".png")
+				puts "#{com}".upcase
+			end
+		end
 	end
+	url_question(url, com_codes)
+	# size.each do |key, number|
+	# 	driver.navigate.to "#{url}"
+	# 	puts key
+	# 	driver.manage.window.resize_to(number-50,800)
+	# 	driver.save_screenshot("#{number}".upcase+".png")
+	# end
+	
+		
+else
+	print "\n 
+	Are you trying to use auto-print? 
+	why dont you try this command:\n\n
+	auto-print help \n\n\n
+	"
 end
