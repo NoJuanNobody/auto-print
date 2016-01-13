@@ -8,12 +8,7 @@ require 'colorize'
 url = ARGV[0]
 puts url
 com_codes = ['apl', 'ach', 'bbv', 'ccv', 'cci', 'cwf', 'dvf', 'eth', 'frv', 'gsv', 'hsd', 'lhn', 'lph', 'mgc', 'ocv', 'rwv', 'sbv', 'tck', 'wcd']
-size = {
-	'medium' => 1200,
-	'small' =>992,
-	'xsmall' => 768,
-	'mobile' => 400
-}
+
 
 
 
@@ -57,7 +52,7 @@ elsif ARGV.length == 1 and (ARGV[0] == "-v" or ARGV[0] == "-version" or ARGV[0] 
 
 	puts "
 				__________________________
-				| VERSION 0.1.0          |
+				| VERSION 0.2.0          |
 				--------------------------
 				".colorize(:yellow)
 	puts  " the use of this program is open source, but intended for the needs of Erickson Living employees only. if you wish to make a pull request you may do so at \n\n".yellow

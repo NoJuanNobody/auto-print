@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'auto-print'
-  s.version     = '0.1.0'
+  s.version     = '0.2.0'
   s.date        = '2015-12-12'
   s.summary     = "auto-print"
   s.description = "automated image processing for url versioning in the erickson living corporation"
