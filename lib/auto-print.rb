@@ -74,7 +74,7 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 		puts "Do you wish to screenshot of".yellow
 		puts " #{url} ".red
 		print "without additional versioning? [Y/N/X]\n\n".yellow
-		puts "you can exit this form at any time by pressing the X key on your keyboard"
+		puts "you can exit this form at any time by pressing the X key on your keyboard".upcase.yellow
 
 		versioningResponse = STDIN.gets.strip.upcase
 		print "\n\n"
@@ -92,7 +92,7 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 	def version_question(url, com_codes)
 		puts "\n\n" 
 		puts "Is this campaign versioned? [Y/N/X]".yellow
-		puts "you can exit this form at any time by pressing the X key on your keyboard".yellow
+		# puts "you can exit this form at any time by pressing the X key on your keyboard".yellow
 
 		campaignResponse = STDIN.gets.strip.upcase
 		print "\n\n"
@@ -100,23 +100,37 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 		if campaignResponse =='Y'
 			email_question( url, com_codes)
 		else
-			puts "which community do you wish to print please insert a 3 letter com code"
+			puts "which community do you wish to print please insert a 3 letter com code".yellow
 			com = STDIN.gets.strip.upcase
-			email_question(com, url, com_codes)
+			email_question(url, com_codes, com)
 		end
 	end
 
-	def email_question(com_code=com_codes, url)
+	def email_question(url, com_codes, com = '')
 		puts "are these emails?[Y/N/X]".yellow
 		emailResponse = STDIN.gets.strip.upcase
 		print"\n\n"
+		if emailResponse == 'Y'
+			puts "is this a landing page connected to the email?".yellow
+			emailLPresponse = STDIN.gets.strip.upcase
+			print "\n\n"
+		end
+
+		unless com.length < 3
+			com_codes = ["#{com}"]
+		end
 
 		if emailResponse == 'Y'
-			email_screenshot(url, com_code)
+			
+			if emailLPresponse == 'Y'
+				LP_email_screenshot(url, com_codes)
+			else
+				email_screenshot(url, com_codes)
+			end
 		elsif emailResponse == 'N'
-			LP_screenshot(url, com_code)
+			LP_screenshot(url, com_codes)
 		else
-			print "exiting sequence"
+			print "exiting sequence".red
 		end
 	end
 
@@ -126,29 +140,43 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 		driver.save_screenshot("#{name}"+".png")
 	end
 
-	def LP_screenshot(url, com_codes)
-		if url =~ /(http)+[\S]*/
-			puts "program"
+	def LP_email_screenshot(url, com_codes)
+		# if url =~ /(http)+[\S]*/
+			puts "printing versioned landing pages for the followign communities".blink
 			driver = Selenium::WebDriver.for :firefox
 			com_codes.each do |com|
 				# printing email CS
-				driver.navigate.to "#{url}"+"?from="+"#{com}-EMAIL".upcase
+				driver.navigate.to "#{url}"+"?from="+"#{com}-email".upcase
 				driver.save_screenshot("#{com}".upcase+"-email.png")
-				puts "#{com}-EMAIL".upcase
+				print "#{com}-EMAIL   ".upcase
 			end	
-		end
+		# end
 	end
-	def email_screenshot(url, com_codes)
-		if url =~ /(http)+[\S]*/
-			puts "program"
+	def LP_screenshot(url, com_codes)
+		# if url =~ /(http)+[\S]*/
+		
+			puts "printing versioned emails for the following communities".blink
 			driver = Selenium::WebDriver.for :firefox
 			com_codes.each do |com|
 				# landing pages
 				driver.navigate.to "#{url}"+"?from="+"#{com}".upcase
 				driver.save_screenshot("#{com}".upcase+".png")
-				puts "#{com}".upcase
+				print "#{com}   ".upcase
 			end
-		end
+		# end
+	end
+	def email_screenshot(url, com_codes)
+		# if url =~ /(http)+[\S]*/
+		
+			puts "printing versioned emails for the following communities".blink
+			driver = Selenium::WebDriver.for :firefox
+			com_codes.each do |com|
+				# landing pages
+				driver.navigate.to "#{url}"+"#{com}".upcase+"_email.html"
+				driver.save_screenshot("#{com}".upcase+".png")
+				print "#{com}   ".upcase
+			end
+		# end
 	end
 	url_question(url, com_codes)
 	# size.each do |key, number|
