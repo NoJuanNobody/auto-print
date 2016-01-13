@@ -55,8 +55,41 @@ $ gem install auto-print
  ```
  do not pass any queries at the end of the url, this will confuse auto-print. and nobody likes to be confused. error handling will most likely be added to make sure no one can make this mistake.
  
-## Looking to the future
-in future versions the program will feature the ability to print individual files instead of a large package of files. this way you can print more selectively. 
+ here is typically what your output may look like
+ 
+```
+ Do you wish to screenshot of
+ http://YOUR-URL-WILL-APEAR-HERE.COM
+without additional versioning? [Y/N/X]
+
+YOU CAN EXIT THIS FORM AT ANY TIME BY PRESSING THE X KEY ON YOUR KEYBOARD
+n
+
+
+
+
+Is this campaign versioned? [Y/N/X]
+y
+
+
+are these emails?[Y/N/X]
+y
+
+
+is this a landing page connected to the email?
+y
+
+
+printing versioned landing pages for the followign communities
+APL-EMAIL   ACH-EMAIL   BBV-EMAIL   CCV-EMAIL   CCI-EMAIL   CWF-EMAIL   DVF-EMAIL   ETH-EMAIL   FRV-EMAIL   GSV-EMAIL   HSD-EMAIL   LHN-EMAIL   LPH-EMAIL   MGC-EMAIL   OCV-EMAIL   RWV-EMAIL   SBV-EMAIL   TCK-EMAIL   WCD-EMAIL   %      
+```
+ 
+ ##the future is here!!
+ 
+ in the recent weeks i have been working on making it possible to print based on different options and settings. you can now print individual URL's versioned campaigns, web-server-hosted emails, and their email related landing pages. answer the questions that your terminal prompts you to make the most out of this program. 
+ 
+## Looking to the future of the future
 
 the developer is also looking into printing urls based on a txt file in the folder, much like the popular comand ```wget```
 
+I also plan on doing some work to create directories that separate emails and landing pages, but it does not seem necessary at this point
