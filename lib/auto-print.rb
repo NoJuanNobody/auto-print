@@ -141,7 +141,7 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 			driver = Selenium::WebDriver.for :firefox
 			com_codes.each do |com|
 				# printing email CS
-				driver.navigate.to "#{url}"+"?from="+"#{com}&Source=Email".upcase
+				driver.navigate.to "#{url}"+"?from="+"#{com}&Source=Email"
 				driver.save_screenshot("#{com}".upcase+"-email.png")
 				print "#{com}-EMAIL   ".upcase
 			end	
@@ -154,7 +154,7 @@ elsif ARGV.length == 1 and ARGV[0] != "version" or ARGV[0] != "help" or ARGV[0] 
 			driver = Selenium::WebDriver.for :firefox
 			com_codes.each do |com|
 				# landing pages 
-				driver.navigate.to "#{url}"+"?from="+"#{com}&Source=Banner".upcase
+				driver.navigate.to "#{url}"+"?from="+"#{com}&Source=Banner"
 				driver.save_screenshot("#{com}".upcase+".png")
 				print "#{com}   ".upcase
 			end
